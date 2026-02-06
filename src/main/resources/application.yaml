@@ -1,3 +1,45 @@
 spring:
   application:
-    name: Kafka Spring Boot Demo
+    name: kafka-demo
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    # Configuración del Producer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+      properties:
+        linger.ms: 10
+        batch.size: 16384
+        max.in.flight.requests.per.connection: 5
+        enable.idempotence: true
+
+    # Configuración del Consumer
+    consumer:
+      group-id: mi-grupo-consumidor
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      properties:
+        spring.json.trusted.packages: "*"
+        max.poll.records: 500
+        max.poll.interval.ms: 300000
+
+    # Configuración del Listener
+    listener:
+      ack-mode: manual
+      concurrency: 3
+
+# Configuración de topics
+kafka:
+  topics:
+    usuarios: usuarios-topic
+    pedidos: pedidos-topic
+    notificaciones: notificaciones-topic
+
+server:
+  port: 8081

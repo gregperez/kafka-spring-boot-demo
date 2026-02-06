@@ -250,8 +250,3 @@ docker-compose restart
 3. Implementar Kafka Streams
 4. Agregar Avro/Schema Registry
 5. Implementar testing con Testcontainers
-# Health check
-curl http://localhost:8081/api/kafka/health
-
-# Generar datos de prueba
-curl -X POST "http://localhost:8081/api/kafka/generar-datos?cantidad=5"curl -X POST "http://localhost:8081/api/kafka/generar-datos?cantidad=5"
